@@ -31,6 +31,7 @@ Data must be located at /texo/src/main/resources and filename must be movielist.
 Since h2 database has some limitations and for test purposes the csv file pattern must be:
 
 id, releaseYear, title, studios, producers, winner
+
 3,1980,"The Formula","MGM/United Artists","Steve Shagan",
 
 The winner values must be "yes", "no", and it can be empty, in the example above, it is empty.
