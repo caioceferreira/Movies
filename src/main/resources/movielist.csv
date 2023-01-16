@@ -1,6 +1,6 @@
 id, releaseYear, title, studios, producers, winner
 1,1980,"Can't Stop the Music","Associated Film Distribution","Allan Carr",yes
-2,1980,"Cruising","Lorimar Productions, United Artists","Jerry Weintraub",yes
+2,1980,"Cruising","Lorimar Productions, United Artists","Jerry Weintraub",
 3,1980,"The Formula","MGM/United Artists","Steve Shagan",
 4,1980,"Friday the 13th","Paramount Pictures","Sean S. Cunningham",
 5,1980,"The Nude Bomb","Universal Studios","Jennings Lang",
@@ -50,7 +50,7 @@ id, releaseYear, title, studios, producers, winner
 49,1988,"Mac and Me","Orion Pictures","R. J. Louis",
 50,1988,"Rambo III","TriStar Pictures, Carolco Pictures","Buzz Feitshans",
 51,1989,"Star Trek V: The Final Frontier","Paramount Pictures","Harve Bennett",yes
-52,1989,"The Karate Kid Part III","Columbia Pictures","Jerry Weintraub",yes
+52,1989,"The Karate Kid Part III","Columbia Pictures","Jerry Weintraub",
 53,1989,"Lock Up","TriStar Pictures, Carolco Pictures","Charles Gordon and Lawrence Gordon",
 54,1989,"Road House","United Artists","Joel Silver",
 55,1989,"Speed Zone","Orion Pictures","Murray Shostack",
@@ -77,7 +77,7 @@ id, releaseYear, title, studios, producers, winner
 76,1994,"Color of Night","Hollywood Pictures","Buzz Feitshans and David Matalon",yes
 77,1994,"North","Columbia Pictures, Castle Rock Entertainment","Rob Reiner and Alan Zweibel",
 78,1994,"On Deadly Ground","Warner Bros.","A. Kitman Ho, Julius R. Nasso and Steven Seagal",
-79,1994,"The Specialist","Warner Bros.","Jerry Weintraub",yes
+79,1994,"The Specialist","Warner Bros.","Jerry Weintraub",
 80,1994,"Wyatt Earp","Warner Bros.","Kevin Costner, Lawrence Kasdan and Jim Wilson",
 81,1995,"Showgirls","MGM/United Artists","Charles Evans and Alan Marshall",yes
 82,1995,"Congo","Paramount Pictures","Kathleen Kennedy and Sam Mercer",

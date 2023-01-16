@@ -129,15 +129,23 @@ public class MovieJPAResource{
 	}
 
 	private void findPreviousAndFollowingWins(String producer, List<Movie> winnerMovies, Set<Award>allAwards) {
-
-		findPreviousMovie(producer, previousMovie, winnerMovies);
+		resetPreviousAndFollowingMovies();
+		findPreviousMovie(producer, winnerMovies);
 		findFollowingOrUpdatePreviousMovie(producer, winnerMovies);
 		createIntervalAndSetAward(producer, allAwards);
 	}
-
-	private void findPreviousMovie(String producer, Movie previousMovie, List<Movie> winnerMovies) {
+	
+	private void resetPreviousAndFollowingMovies() {
+		previousMovie= null;
+		followingMovie = null;
+	}
+	
+	private void findPreviousMovie(String producer, List<Movie> winnerMovies) {
 		for(Movie movie : winnerMovies) {
-			if(movie.getProducers().contains(producer) && previousMovie == null ) {
+			if(movie.getProducers().contains(producer) && getPreviousMovie() == null ) {
+				setPreviousMovie(movie);
+			}
+			if(getPreviousMovie() != null && movie.getProducers().contains(producer) && movie.getReleaseyear() < getPreviousMovie().getReleaseyear()  ) {
 				setPreviousMovie(movie);
 			}
 		}
@@ -145,11 +153,11 @@ public class MovieJPAResource{
 
 	private void findFollowingOrUpdatePreviousMovie(String producer, List<Movie> winnerMovies) {
 		for(Movie movie : winnerMovies) {
-			if(movie.getProducers().contains(producer) && previousMovie != null && !previousMovie.equals(movie) && movie.getReleaseyear() < previousMovie.getReleaseyear() ) {
+			if(movie.getProducers().contains(producer) && getPreviousMovie() != null && !getPreviousMovie().equals(movie) && movie.getReleaseyear() < getPreviousMovie().getReleaseyear() ) {
 				setFollowingMovie(getPreviousMovie());
 				setPreviousMovie(movie);
 			}
-			if(movie.getProducers().contains(producer) && previousMovie != null && !previousMovie.equals(movie) && movie.getReleaseyear() > previousMovie.getReleaseyear()) {
+			if(movie.getProducers().contains(producer) && getPreviousMovie() != null && !getPreviousMovie().equals(movie) && movie.getReleaseyear() > getPreviousMovie().getReleaseyear()) {
 				setFollowingMovie(movie);
 			}
 		}
