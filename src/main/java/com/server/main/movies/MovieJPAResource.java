@@ -30,28 +30,28 @@ public class MovieJPAResource{
 	private Movie previousMovie = null;
 	private Movie followingMovie = null;
 
-	@GetMapping("jpa/movie")  
+	@GetMapping("movie")  
 	public List<Movie> getAllMovie(){  
 		return movieService.getAllMovie();  
 	}  
-	@GetMapping("jpa/movie/{id}")  
+	@GetMapping("movie/{id}")  
 	public Movie getMovie(@PathVariable("id") int id) {  
 		return movieService.getMovieById(id);  
 	}  
 
-	@DeleteMapping("jpa/movie/{id}")  
+	@DeleteMapping("movie/{id}")  
 	public void deleteMovie(@PathVariable("id") int id) {  
 		movieService.delete(id);  
 	}  
 
-	@PostMapping("jpa/movie")  
+	@PostMapping("movie")  
 	public Integer saveMovie(@RequestBody Movie movie) {  
 		movieService.saveOrUpdate(movie);  
 		return movie.getId();  
 	} 
 
 
-	@GetMapping("jpa/movie/api") 
+	@GetMapping("movie/awards") 
 	public AwardInterval getApiMovie(){  
 		List<Movie> allMovie = movieService.getAllMovie(); 
 		Set<Award> allAwards = new HashSet<>();
