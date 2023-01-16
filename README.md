@@ -10,6 +10,8 @@ Run as: Java Application
 
 ![image](https://user-images.githubusercontent.com/24591804/212768974-debc577a-5feb-4f23-a420-283792f123fe.png)
 
+After the application started just type on the browser:
+http://localhost:8080/movie/awards
 
 How to test:
 
