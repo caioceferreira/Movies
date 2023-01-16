@@ -27,6 +27,7 @@ public class MovieJPAResource{
 	@Autowired  
 	MovieService movieService;
 	public static final String YES = "yes";
+	public static final String AND = " and ";
 	private Movie previousMovie = null;
 	private Movie followingMovie = null;
 
@@ -104,10 +105,22 @@ public class MovieJPAResource{
 
 	private void addProducersName(List<Movie> movies, List<String> producers) {
 		for(Movie movie : movies) {
+			splitIfMoreThanOneProducer(movie, producers);
 			producers.add(movie.getProducers());
 		}
 	}
 
+	private void splitIfMoreThanOneProducer(Movie movie, List<String> producers) {
+		if(movie.getProducers().contains(AND)) {
+			String[] producersSplit = movie.getProducers().split(AND);
+			for(String addProducerSplit : producersSplit) {
+				if(!addProducerSplit.equalsIgnoreCase(AND)) {
+					producers.add(addProducerSplit);
+				}
+			}
+		}
+	}
+	
 	private void countTimesTheSameNameAppears(List<String> producers, Map<String, Integer>  nameAndCount) {
 		for (String producer : producers) {
 			Integer count = nameAndCount.get(producer);
