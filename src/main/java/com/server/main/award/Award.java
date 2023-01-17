@@ -31,14 +31,12 @@ public class Award implements Comparable<Award> {
 
 	@Override
 	public int compareTo(Award o) {
-		if(this.getProducer().equalsIgnoreCase(o.getProducer())) {
 			if( this.getInterval().intValue() == o.getInterval().intValue()) {
 				return 0;
 			}
-			else {
+			if(this.getInterval().intValue() < o.getInterval().intValue()) {
 				return -1;
 			}
-		}
 		return 1;
 	}
 
