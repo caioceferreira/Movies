@@ -27,7 +27,8 @@ public class MovieJPAResource{
 	@Autowired  
 	MovieService movieService;
 	public static final String YES = "yes";
-	public static final String AND = " and ";
+	public static final String AND = " and";
+	public static final String COMMA = ",";
 	private Movie previousMovie = null;
 	private Movie followingMovie = null;
 
@@ -91,12 +92,12 @@ public class MovieJPAResource{
 		return setToReturn;
 	}
 
-	private List<String> findWhoWonMoreThanOnce(List<Movie> movies){		
+	private List<String> findWhoWonMoreThanOnce(List<Movie> winnerMovies){		
 		Map<String, Integer> nameAndCount = new HashMap<>();
 		List<String> producers  = new ArrayList<>();
 		List<String> producersFiltered = new ArrayList<>();
 
-		addProducersName(movies, producers);
+		addProducersName(winnerMovies, producers);
 		countTimesTheSameNameAppears(producers, nameAndCount );
 		countTimesProducerWon(producersFiltered, nameAndCount);
 
@@ -105,22 +106,50 @@ public class MovieJPAResource{
 
 	private void addProducersName(List<Movie> movies, List<String> producers) {
 		for(Movie movie : movies) {
-			splitIfMoreThanOneProducer(movie, producers);
-			producers.add(movie.getProducers());
+			splitIfMoreThanOneProducer(movie.getProducers(), producers);
 		}
 	}
 
-	private void splitIfMoreThanOneProducer(Movie movie, List<String> producers) {
-		if(movie.getProducers().contains(AND)) {
-			String[] producersSplit = movie.getProducers().split(AND);
-			for(String addProducerSplit : producersSplit) {
-				if(!addProducerSplit.equalsIgnoreCase(AND)) {
-					producers.add(addProducerSplit);
-				}
+	private void splitIfMoreThanOneProducer(String producersToSplit, List<String> producers) {
+		String[] producerCommaSplit = null;
+
+		if(producersToSplit.contains(AND)){
+			producerCommaSplit = splitAndFromProducers(producersToSplit, producers);
+
+			if(producerCommaSplit != null) {
+				splitCommaFromProducers(producerCommaSplit, producers);
+			}
+
+		}
+		else {
+			producers.add(producersToSplit.trim());
+		}
+	}
+
+	private String[] splitAndFromProducers(String producersToSplit, List<String> producers) {
+		String[] producerCommaSplit = null;
+
+		String[] producersSplit = producersToSplit.split(AND);
+		for(String addProducerSplit : producersSplit) {
+			if(addProducerSplit.contains(",")) {
+				producerCommaSplit = addProducerSplit.split(COMMA);
+			}
+			if(!addProducerSplit.contains(COMMA) && !addProducerSplit.equalsIgnoreCase(AND)) {
+				producers.add(addProducerSplit.trim());
+			}
+		}
+
+		return producerCommaSplit;
+	}
+
+	private void splitCommaFromProducers(String[] producerCommaSplit, List<String> producers) {
+		for(String addProducerSplit : producerCommaSplit ) {
+			if(!addProducerSplit.equalsIgnoreCase(COMMA)) {
+				producers.add(addProducerSplit.trim());
 			}
 		}
 	}
-	
+
 	private void countTimesTheSameNameAppears(List<String> producers, Map<String, Integer>  nameAndCount) {
 		for (String producer : producers) {
 			Integer count = nameAndCount.get(producer);
@@ -147,12 +176,12 @@ public class MovieJPAResource{
 		findFollowingOrUpdatePreviousMovie(producer, winnerMovies);
 		createIntervalAndSetAward(producer, allAwards);
 	}
-	
+
 	private void resetPreviousAndFollowingMovies() {
 		previousMovie= null;
 		followingMovie = null;
 	}
-	
+
 	private void findPreviousMovie(String producer, List<Movie> winnerMovies) {
 		for(Movie movie : winnerMovies) {
 			if(movie.getProducers().contains(producer) && getPreviousMovie() == null ) {
